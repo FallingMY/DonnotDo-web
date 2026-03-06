@@ -189,3 +189,5 @@ MIT License
 ---
 
 **Enjoy the game! 🎮**
+
+Coded by Claude
