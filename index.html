@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Don't Do It Challenge</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <svg width="0" height="0" style="position: absolute">
+      <defs>
+        <filter id="industrial-noise">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.9"
+            numOctaves="4"
+          />
+          <feColorMatrix type="saturate" values="0" />
+          <feBlend mode="multiply" in="SourceGraphic" />
+        </filter>
+      </defs>
+    </svg>
+  </body>
+</html>

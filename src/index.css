@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply select-none;
+  }
+
+  input,
+  textarea {
+    @apply select-text;
+  }
+
+  input:focus,
+  textarea:focus {
+    cursor: block;
+  }
+}
+
+@layer utilities {
+  .shadow-industrial {
+    filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.5));
+  }
+}
