@@ -173,19 +173,19 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
                         {q.isCustom && <span className="text-accent text-xs ml-2">[自定义]</span>}
                       </div>
                       {q.isCustom && (
-                        <div className="absolute right-2 top-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <button
+                        <div className="absolute right-2 top-2 flex gap-1 opacity-0 group-hover:opacity-100">
+                          <IndustrialButton
                             onClick={() => handleEditQuestion(q)}
-                            className="text-text-secondary hover:text-accent text-xs px-2 py-1 bg-surface border border-border"
+                            className="text-xs px-2 py-1 min-h-[28px]"
                           >
                             编辑
-                          </button>
-                          <button
+                          </IndustrialButton>
+                          <IndustrialButton
                             onClick={() => handleDeleteQuestion(q.id)}
-                            className="text-text-secondary hover:text-accent text-xs px-2 py-1 bg-surface border border-border"
+                            className="text-xs px-2 py-1 min-h-[28px]"
                           >
                             删除
-                          </button>
+                          </IndustrialButton>
                         </div>
                       )}
                     </div>

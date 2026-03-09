@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 
-const DURATION = 800; // ms
-const INTERVAL = 100; // ms (10 FPS)
+const MS_PER_CHAR = 50;
+const MIN_DURATION = 200; // ms
+const MAX_DURATION = 600; // ms
+const INTERVAL = 50;      // ms (20 FPS)
 const CHAR_POOL = '0123456789ABCDEF!@#$%^&*的一是在不了有和人这中大来上个国得以说于';
 
 export const useScrambleText = (targetText) => {
@@ -21,11 +23,12 @@ export const useScrambleText = (targetText) => {
     }
 
     startTimeRef.current = Date.now();
+    const duration = Math.max(MIN_DURATION, Math.min(targetText.length * MS_PER_CHAR, MAX_DURATION));
 
     // 立即开始第一帧（全部乱码）
     const updateScramble = () => {
       const elapsed = Date.now() - startTimeRef.current;
-      const progress = Math.min(elapsed / DURATION, 1);
+      const progress = Math.min(elapsed / duration, 1);
 
       if (progress >= 1) {
         setDisplayText(targetText);

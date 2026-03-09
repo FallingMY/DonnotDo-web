@@ -1,10 +1,20 @@
+/* Ark Pixel — Proportional (题目文本 / 自然阅读) */
 @font-face {
-  font-family: 'Zpix';
-  src: url('/fonts/zpix.woff') format('woff'),
-       url('/fonts/zpix.ttf') format('truetype');
+  font-family: 'Ark Pixel';
+  src: url('/fonts/ark-pixel-font-12px-proportional-ttf.woff2-v2026.02.27/ark-pixel-12px-proportional-latin.ttf.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-024F, U+0300-036F, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Ark Pixel';
+  src: url('/fonts/ark-pixel-font-12px-proportional-ttf.woff2-v2026.02.27/ark-pixel-12px-proportional-zh_cn.ttf.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2E80-9FFF, U+F900-FAFF, U+FE30-FE4F, U+FF00-FFEF, U+3000-303F;
 }
 
 @tailwind base;
@@ -23,7 +33,15 @@
 
   input:focus,
   textarea:focus {
-    cursor: block;
+    caret-color: #F5D300;
+  }
+
+  html {
+    background-color: #0D0D0D;
+  }
+
+  html, body, #root {
+    @apply min-h-full;
   }
 }
 
@@ -39,4 +57,8 @@
     text-rendering: optimizeSpeed;
     image-rendering: pixelated;
   }
+}
+
+.font-pixel {
+  font-family: 'Ark Pixel', monospace !important;
 }

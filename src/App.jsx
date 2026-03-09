@@ -36,7 +36,7 @@ function App() {
   const canUndo = state.historyStack.length > 0;
 
   return (
-    <div className="min-h-screen bg-bg text-text-primary font-sans">
+    <div className="min-h-[100dvh] bg-bg text-text-primary font-sans">
       <CornerBorders />
 
       {state.status === 'SETUP' && (

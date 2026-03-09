@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { IndustrialButton } from './IndustrialButton';
 
 export const ActionControls = ({
@@ -10,6 +10,7 @@ export const ActionControls = ({
   canUndo = false,
   isLastRound = false
 }) => {
+  const [isProcessing, setIsProcessing] = useState(false);
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -19,18 +20,22 @@ export const ActionControls = ({
   }, []);
 
   const handleSuccess = () => {
-    // 成功不计分，直接切换到下一题
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsProcessing(true);
     onSuccess();
     timerRef.current = setTimeout(() => {
       onNext();
+      setIsProcessing(false);
     }, 300);
   };
 
   const handleFail = () => {
-    // 失败增加1分（惩罚分）
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setIsProcessing(true);
     onFail();
     timerRef.current = setTimeout(() => {
       onNext();
+      setIsProcessing(false);
     }, 300);
   };
 
@@ -39,23 +44,23 @@ export const ActionControls = ({
       <div className="p-4 space-y-2">
         {/* Score Controls - 失败+1分，成功不计分 */}
         <div className="grid grid-cols-2 gap-2">
-          <IndustrialButton onClick={handleSuccess} variant="primary">
+          <IndustrialButton onClick={handleSuccess} variant="primary" disabled={isProcessing}>
             ✓ Success
           </IndustrialButton>
-          <IndustrialButton onClick={handleFail}>
+          <IndustrialButton onClick={handleFail} disabled={isProcessing}>
             ✗ Fail (+1)
           </IndustrialButton>
         </div>
 
         {/* Navigation Controls */}
         <div className="grid grid-cols-3 gap-2">
-          <IndustrialButton onClick={onNext}>
+          <IndustrialButton onClick={onNext} disabled={isProcessing}>
             {isLastRound ? 'Finish' : 'Skip'}
           </IndustrialButton>
-          <IndustrialButton onClick={onUndo} disabled={!canUndo}>
+          <IndustrialButton onClick={onUndo} disabled={!canUndo || isProcessing}>
             Undo
           </IndustrialButton>
-          <IndustrialButton onClick={onEnd}>
+          <IndustrialButton onClick={onEnd} disabled={isProcessing}>
             End
           </IndustrialButton>
         </div>

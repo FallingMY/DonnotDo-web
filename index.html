@@ -12,18 +12,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <svg width="0" height="0" style="position: absolute">
-      <defs>
-        <filter id="industrial-noise">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.9"
-            numOctaves="4"
-          />
-          <feColorMatrix type="saturate" values="0" />
-          <feBlend mode="multiply" in="SourceGraphic" />
-        </filter>
-      </defs>
-    </svg>
   </body>
 </html>
