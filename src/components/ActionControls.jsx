@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { IndustrialButton } from './IndustrialButton';
 
 export const ActionControls = ({
@@ -9,10 +10,18 @@ export const ActionControls = ({
   canUndo = false,
   isLastRound = false
 }) => {
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
   const handleSuccess = () => {
     // 成功不计分，直接切换到下一题
     onSuccess();
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       onNext();
     }, 300);
   };
@@ -20,7 +29,7 @@ export const ActionControls = ({
   const handleFail = () => {
     // 失败增加1分（惩罚分）
     onFail();
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       onNext();
     }, 300);
   };

@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Zpix';
+  src: url('/fonts/zpix.woff') format('woff'),
+       url('/fonts/zpix.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,5 +30,13 @@
 @layer utilities {
   .shadow-industrial {
     filter: drop-shadow(4px 4px 0px rgba(0, 0, 0, 0.5));
+  }
+
+  .font-pixel-render {
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
+    image-rendering: pixelated;
   }
 }

@@ -32,72 +32,78 @@ export const useGameEngine = () => {
     }
   }, [state]);
 
-  const startGame = useCallback((rounds) => {
-    if (state.questionBank.length === 0) {
-      console.error('Cannot start game: question bank is empty');
-      return;
-    }
+  const startGame = useCallback((rounds, questions) => {
+    setState(prev => {
+      const bank = questions ?? prev.questionBank;
+      if (bank.length === 0) {
+        console.error('Cannot start game: question bank is empty');
+        return prev;
+      }
 
-    // Shuffle questions using Fisher-Yates algorithm
-    const shuffled = [...state.questionBank];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
+      // Shuffle questions using Fisher-Yates algorithm
+      const shuffled = [...bank];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
 
-    const firstQuestion = shuffled[0];
-    setState({
-      ...state,
-      status: 'PLAYING',
-      config: { totalRounds: rounds },
-      current: {
-        round: 1,
-        score: 0,
-        actionText: firstQuestion?.content || '',
-        currentQuestion: firstQuestion
-      },
-      historyStack: [],
-      questionBank: shuffled
+      const firstQuestion = shuffled[0];
+      return {
+        ...prev,
+        status: 'PLAYING',
+        config: { totalRounds: rounds },
+        current: {
+          round: 1,
+          score: 0,
+          actionText: firstQuestion?.content || '',
+          currentQuestion: firstQuestion
+        },
+        historyStack: [],
+        questionBank: shuffled
+      };
     });
-  }, [state]);
+  }, []);
 
   const nextRound = useCallback(() => {
-    if (state.current.round >= state.config.totalRounds) {
-      setState(prev => ({ ...prev, status: 'ENDED' }));
-      return;
-    }
+    setState(prev => {
+      if (prev.current.round >= prev.config.totalRounds) {
+        return { ...prev, status: 'ENDED' };
+      }
 
-    const nextRoundNum = state.current.round + 1;
-    const nextQuestion = state.questionBank[nextRoundNum - 1];
+      const nextRoundNum = prev.current.round + 1;
+      const nextQuestion = prev.questionBank[nextRoundNum - 1];
 
-    setState(prev => ({
-      ...prev,
-      current: {
-        ...prev.current,
-        round: nextRoundNum,
-        actionText: nextQuestion?.content || '',
-        currentQuestion: nextQuestion
-      },
-      historyStack: [
-        ...prev.historyStack.slice(-MAX_HISTORY + 1),
-        { ...prev.current }
-      ]
-    }));
-  }, [state]);
+      return {
+        ...prev,
+        current: {
+          ...prev.current,
+          round: nextRoundNum,
+          actionText: nextQuestion?.content || '',
+          currentQuestion: nextQuestion
+        },
+        historyStack: [
+          ...prev.historyStack.slice(-MAX_HISTORY + 1),
+          { ...prev.current }
+        ]
+      };
+    });
+  }, []);
 
   const undo = useCallback(() => {
-    if (state.historyStack.length === 0) {
-      console.warn('Cannot undo: no history available');
-      return;
-    }
+    setState(prev => {
+      if (prev.historyStack.length === 0) {
+        console.warn('Cannot undo: no history available');
+        return prev;
+      }
 
-    const previousState = state.historyStack[state.historyStack.length - 1];
-    setState(prev => ({
-      ...prev,
-      current: previousState,
-      historyStack: prev.historyStack.slice(0, -1)
-    }));
-  }, [state.historyStack]);
+      const previousState = prev.historyStack[prev.historyStack.length - 1];
+      return {
+        ...prev,
+        current: previousState,
+        historyStack: prev.historyStack.slice(0, -1)
+      };
+    });
+  }, []);
 
   const endGame = useCallback(() => {
     setState(prev => ({ ...prev, status: 'ENDED' }));

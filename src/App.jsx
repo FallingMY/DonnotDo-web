@@ -20,8 +20,7 @@ function App() {
   } = useGameEngine();
 
   const handleStart = (rounds, questions) => {
-    // Questions are already in state.questionBank, just start the game
-    startGame(rounds);
+    startGame(rounds, questions);
   };
 
   const handleSuccess = () => {

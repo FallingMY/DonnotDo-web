@@ -17,6 +17,7 @@ export default {
       fontFamily: {
         mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
         sans: ['Inter', 'PingFang SC', 'sans-serif'],
+        pixel: ['Zpix', 'monospace'],
       },
     },
     borderRadius: {
