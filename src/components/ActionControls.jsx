@@ -2,8 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { IndustrialButton } from './IndustrialButton';
 
 export const ActionControls = ({
-  onSuccess,
-  onFail,
   onNext,
   onUndo,
   onEnd,
@@ -22,7 +20,6 @@ export const ActionControls = ({
   const handleSuccess = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setIsProcessing(true);
-    onSuccess();
     timerRef.current = setTimeout(() => {
       onNext(0);
       setIsProcessing(false);
@@ -32,7 +29,6 @@ export const ActionControls = ({
   const handleFail = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setIsProcessing(true);
-    onFail();
     timerRef.current = setTimeout(() => {
       onNext(1);
       setIsProcessing(false);

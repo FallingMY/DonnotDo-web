@@ -1,4 +1,6 @@
-export const IndustrialButton = ({
+import { memo } from 'react';
+
+export const IndustrialButton = memo(({
   children,
   onClick,
   disabled = false,
@@ -23,4 +25,4 @@ export const IndustrialButton = ({
       {children}
     </button>
   );
-};
+});

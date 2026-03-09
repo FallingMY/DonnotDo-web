@@ -132,26 +132,6 @@ export const useGameEngine = () => {
     }));
   }, []);
 
-  const incrementScore = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      current: {
-        ...prev.current,
-        score: prev.current.score + 1
-      }
-    }));
-  }, []);
-
-  const decrementScore = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      current: {
-        ...prev.current,
-        score: Math.max(0, prev.current.score - 1)
-      }
-    }));
-  }, []);
-
   return {
     state,
     startGame,
@@ -159,8 +139,6 @@ export const useGameEngine = () => {
     undo,
     endGame,
     resetGame,
-    updateQuestionBank,
-    incrementScore,
-    decrementScore
+    updateQuestionBank
   };
 };

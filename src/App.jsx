@@ -6,6 +6,7 @@ import { ConfigPanel } from "./components/ConfigPanel";
 import { PlayingView } from "./components/PlayingView";
 import { ActionControls } from "./components/ActionControls";
 import { EndScreen } from "./components/EndScreen";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const EASE_IN = [0.25, 1, 0.5, 1];
 const EASE_OUT = [0.7, 0, 1, 0.5];
@@ -25,14 +26,6 @@ function App() {
     startGame(rounds, questions);
   };
 
-  const handleSuccess = () => {
-    // 成功不计分
-  };
-
-  const handleFail = () => {
-    // 失败+1分，由 nextRound(scoreDelta) 原子处理以保证 undo 一致性
-  };
-
   const handleUndo = () => {
     undo();
     setUndoCount((c) => c + 1);
@@ -42,11 +35,12 @@ function App() {
   const canUndo = state.historyStack.length > 0;
 
   return (
-    <div className="min-h-[100dvh] bg-bg text-text-primary font-sans">
-      <CornerBorders />
+    <ErrorBoundary>
+      <div className="min-h-[100dvh] bg-bg text-text-primary font-sans">
+        <CornerBorders />
 
-      <AnimatePresence mode="wait">
-        {state.status === "SETUP" && (
+        <AnimatePresence mode="wait">
+          {state.status === "SETUP" && (
           <motion.div
             key="setup"
             initial={{ opacity: 0, y: 20 }}
@@ -135,8 +129,6 @@ function App() {
             }}
           >
             <ActionControls
-              onSuccess={handleSuccess}
-              onFail={handleFail}
               onNext={nextRound}
               onUndo={handleUndo}
               onEnd={endGame}
@@ -147,6 +139,7 @@ function App() {
         )}
       </AnimatePresence>
     </div>
+    </ErrorBoundary>
   );
 }
 

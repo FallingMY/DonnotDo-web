@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { useScrambleText } from '../hooks/useScrambleText';
 import { ModuleCard } from './ModuleCard';
-import './style.css';
+
 
 export const TargetMonitor = ({ actionText, currentRound, totalRounds, undoTrigger, ...rest }) => {
   const scrambledText = useScrambleText(actionText);

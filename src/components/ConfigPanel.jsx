@@ -10,7 +10,7 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
   const [questions, setQuestions] = useState(initialQuestions);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [formData, setFormData] = useState({ content: '', category: '言语' });
+  const [formData, setFormData] = useState({ content: '', category: '日常' });
 
   const handleStart = () => {
     if (questions.length === 0) {
@@ -50,7 +50,7 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
     };
 
     setQuestions([...questions, newQuestion]);
-    setFormData({ content: '', category: '言语' });
+    setFormData({ content: '', category: '日常' });
     setShowAddForm(false);
   };
 
@@ -71,7 +71,7 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
         ? { ...q, content: formData.content.trim(), category: formData.category }
         : q
     ));
-    setFormData({ content: '', category: '言语' });
+    setFormData({ content: '', category: '日常' });
     setShowAddForm(false);
     setEditingId(null);
   };
@@ -85,7 +85,7 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
   const handleCancelForm = () => {
     setShowAddForm(false);
     setEditingId(null);
-    setFormData({ content: '', category: '言语' });
+    setFormData({ content: '', category: '日常' });
   };
 
   const questionCount = questions.length;
@@ -144,9 +144,9 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       className="w-full bg-surface border border-border text-text-primary font-mono text-sm px-2 py-1 focus:border-accent focus:outline-none"
                     >
-                      <option value="言语">言语</option>
-                      <option value="动作">动作</option>
-                      <option value="话题">话题</option>
+                      <option value="日常">日常</option>
+                      <option value="专业">专业</option>
+                      <option value="兴趣">兴趣</option>
                     </select>
                     <div className="grid grid-cols-2 gap-2">
                       <IndustrialButton
@@ -177,7 +177,7 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
                         {q.isCustom && <span className="text-accent text-xs ml-2">[自定义]</span>}
                       </div>
                       {q.isCustom && (
-                        <div className="absolute right-2 top-2 flex gap-1 opacity-0 group-hover:opacity-100">
+                        <div className="absolute right-2 top-2 flex gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100">
                           <IndustrialButton
                             onClick={() => handleEditQuestion(q)}
                             className="text-xs px-2 py-1 min-h-[28px]"

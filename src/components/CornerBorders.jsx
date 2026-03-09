@@ -1,4 +1,6 @@
-export const CornerBorders = () => {
+import { memo } from 'react';
+
+export const CornerBorders = memo(() => {
   const pulseStyle = { animation: 'corner-pulse 4s ease-in-out infinite' };
 
   return (
@@ -16,4 +18,4 @@ export const CornerBorders = () => {
       <div className="fixed bottom-0 right-0 w-8 h-8 border-b border-r border-border pointer-events-none z-50" style={pulseStyle} />
     </>
   );
-};
+});
