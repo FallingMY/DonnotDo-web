@@ -24,7 +24,7 @@ export const ActionControls = ({
     setIsProcessing(true);
     onSuccess();
     timerRef.current = setTimeout(() => {
-      onNext();
+      onNext(0);
       setIsProcessing(false);
     }, 300);
   };
@@ -34,13 +34,13 @@ export const ActionControls = ({
     setIsProcessing(true);
     onFail();
     timerRef.current = setTimeout(() => {
-      onNext();
+      onNext(1);
       setIsProcessing(false);
     }, 300);
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-surface border-t border-border pb-[env(safe-area-inset-bottom)] z-40">
+    <div className="bg-surface border-t border-border pb-[env(safe-area-inset-bottom)]">
       <div className="p-4 space-y-2">
         {/* Score Controls - 失败+1分，成功不计分 */}
         <div className="grid grid-cols-2 gap-2">

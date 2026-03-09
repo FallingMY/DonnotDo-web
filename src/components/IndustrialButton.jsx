@@ -3,9 +3,10 @@ export const IndustrialButton = ({
   onClick,
   disabled = false,
   variant = 'default',
-  className = ''
+  className = '',
+  ...rest
 }) => {
-  const baseClasses = 'font-mono uppercase border transition-none min-h-[44px] px-4 py-2';
+  const baseClasses = 'font-mono uppercase border transition-none min-h-[44px] px-4 py-2 industrial-btn-press';
 
   const variantClasses = {
     default: 'bg-surface border-border text-text-primary hover:bg-accent hover:text-bg active:bg-accent active:text-bg disabled:opacity-50 disabled:cursor-not-allowed',
@@ -17,6 +18,7 @@ export const IndustrialButton = ({
       onClick={onClick}
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+      {...rest}
     >
       {children}
     </button>

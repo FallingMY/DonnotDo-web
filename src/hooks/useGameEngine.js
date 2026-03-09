@@ -64,10 +64,22 @@ export const useGameEngine = () => {
     });
   }, []);
 
-  const nextRound = useCallback(() => {
+  const nextRound = useCallback((scoreDelta = 0) => {
     setState(prev => {
+      // Snapshot BEFORE score change so undo restores the correct score
+      const historyEntry = { ...prev.current };
+      const newScore = prev.current.score + scoreDelta;
+
       if (prev.current.round >= prev.config.totalRounds) {
-        return { ...prev, status: 'ENDED' };
+        return {
+          ...prev,
+          status: 'ENDED',
+          current: { ...prev.current, score: newScore },
+          historyStack: [
+            ...prev.historyStack.slice(-MAX_HISTORY + 1),
+            historyEntry
+          ]
+        };
       }
 
       const nextRoundNum = prev.current.round + 1;
@@ -76,14 +88,14 @@ export const useGameEngine = () => {
       return {
         ...prev,
         current: {
-          ...prev.current,
           round: nextRoundNum,
+          score: newScore,
           actionText: nextQuestion?.content || '',
           currentQuestion: nextQuestion
         },
         historyStack: [
           ...prev.historyStack.slice(-MAX_HISTORY + 1),
-          { ...prev.current }
+          historyEntry
         ]
       };
     });

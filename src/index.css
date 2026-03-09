@@ -38,6 +38,8 @@
 
   html {
     background-color: #0D0D0D;
+    --ease-industrial-out: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-industrial-in: cubic-bezier(0.7, 0, 1, 0.5);
   }
 
   html, body, #root {
@@ -57,8 +59,29 @@
     text-rendering: optimizeSpeed;
     image-rendering: pixelated;
   }
+
+  .industrial-btn-press:active {
+    transform: scale(0.97);
+  }
 }
 
 .font-pixel {
   font-family: 'Ark Pixel', monospace !important;
+}
+
+/* 角落呼吸 */
+@keyframes corner-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+/* 终端光标 */
+@keyframes terminal-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* GSAP 入场元素初始隐藏 */
+[data-animate] {
+  opacity: 0;
 }

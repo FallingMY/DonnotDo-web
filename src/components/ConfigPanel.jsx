@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { ModuleCard } from './ModuleCard';
 import { IndustrialButton } from './IndustrialButton';
 import { DEFAULT_QUESTIONS } from '../constants/defaultQuestions';
+import { useEntranceTimeline } from '../hooks/useEntranceTimeline';
 
 export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = [] }) => {
   const [rounds, setRounds] = useState(initialRounds);
@@ -89,9 +90,12 @@ export const ConfigPanel = ({ onStart, initialRounds = 10, initialQuestions = []
 
   const questionCount = questions.length;
 
+  const containerRef = useRef(null);
+  useEntranceTimeline(containerRef, []);
+
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 space-y-4">
-      <ModuleCard moduleId="CONFIG" name="GAME SETUP">
+    <div ref={containerRef} className="w-full max-w-2xl mx-auto p-4 space-y-4">
+      <ModuleCard moduleId="CONFIG" name="GAME SETUP" data-animate="card">
         <div className="space-y-4">
           <div>
             <label className="block font-mono text-sm text-text-secondary mb-2 uppercase">
